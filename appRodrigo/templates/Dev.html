@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Página do Desenvolvedor</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <style>
+      /* Reset básico e estilos globais */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f7f6;
+        color: #333;
+      }
+      li {
+        list-style: none;
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      /* Estilos do cabeçalho e título da página */
+      .main-container {
+        min-height: 100vh;
+        padding: 30px 50px 30px 50px;
+      }
+      .nav-container {
+        margin-bottom: 50px;
+        position: relative;
+      }
+      .nav-container .nav-titulo h3 {
+        font-size: 30px;
+        color: #2c3e50;
+      }
+      .nav-container .nav-usuario p {
+        font-size: 16px;
+        color: #555;
+        margin-top: 5px;
+      }
+      .logout {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: #0d6efd;
+        border-radius: 5px;
+        text-align: center;
+        padding: 8px 15px;
+        transition: background-color 0.3s;
+      }
+      .logout:hover {
+        background-color: #084fb9;
+      }
+      .logout a {
+        color: #fff;
+        font-weight: bold;
+      }
+
+      .pagina-titulo-container {
+        margin-bottom: 40px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #e0e0e0;
+      }
+      .pagina-titulo-container h1 {
+        font-size: 36px;
+        color: #2c3e50;
+        margin-bottom: 8px;
+      }
+      .pagina-titulo-container p {
+        font-size: 18px;
+        color: #7f8c8d;
+      }
+
+      /* --- ESTILOS PARA O SISTEMA DE ABAS DO DESENVOLVEDOR --- */
+      .input-aba {
+        display: none;
+      }
+      .botoes-abas-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px; /* Aumentado o espaçamento */
+        margin-bottom: 20px;
+      }
+      .label-aba {
+        display: flex;
+        align-items: center;
+        background-color: #f8f9fa; /* Um cinza muito claro, como na imagem */
+        padding: 20px;
+        border-radius: 8px; /* Mais arredondado */
+        border: 1px solid #dee2e6;
+        cursor: pointer;
+        transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s,
+          transform 0.3s;
+        flex-grow: 1;
+        /* Para ter 2 colunas, cada um ocupa cerca de 50% do espaço, descontando o gap */
+        flex-basis: calc(50% - 20px);
+        min-width: 300px;
+        text-align: left;
+      }
+      .label-aba:hover {
+        transform: translateY(-2px); /* Efeito de elevação sutil */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      }
+
+      .label-aba .icone-container {
+        margin-right: 15px;
+        font-size: 20px;
+        color: #6c757d; /* Cor mais escura para o ícone */
+        width: 25px;
+        text-align: center;
+      }
+      .label-aba .texto-container h3 {
+        font-size: 18px;
+        color: #212529;
+        margin-bottom: 5px;
+        font-weight: 600;
+      }
+      .label-aba .texto-container p {
+        font-size: 14px;
+        color: #6c757d;
+        line-height: 1.4;
+      }
+
+      /* Estilo para o label da aba ATIVA */
+      #dev-aba-tarefas:checked
+        ~ .botoes-abas-container
+        label[for="dev-aba-tarefas"],
+      #dev-aba-planejar:checked
+        ~ .botoes-abas-container
+        label[for="dev-aba-planejar"],
+      #dev-aba-historico:checked
+        ~ .botoes-abas-container
+        label[for="dev-aba-historico"],
+      #dev-aba-falhas:checked
+        ~ .botoes-abas-container
+        label[for="dev-aba-falhas"],
+      #dev-aba-pendencia:checked
+        ~ .botoes-abas-container
+        label[for="dev-aba-pendencia"] {
+        background-color: #fff;
+        border-color: #0d6efd;
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15);
+        transform: translateY(-2px);
+      }
+      /* Para mudar a cor do ícone e texto do label ativo também */
+      #dev-aba-tarefas:checked
+        ~ .botoes-abas-container
+        label[for="dev-aba-tarefas"]
+        .icone-container,
+      #dev-aba-tarefas:checked
+        ~ .botoes-abas-container
+        label[for="dev-aba-tarefas"]
+        .texto-container
+        h3,
+      #dev-aba-planejar:checked
+        ~ .botoes-abas-container
+        label[for="dev-aba-planejar"]
+        .icone-container,
+      #dev-aba-planejar:checked
+        ~ .botoes-abas-container
+        label[for="dev-aba-planejar"]
+        .texto-container
+        h3,
+      #dev-aba-historico:checked
+        ~ .botoes-abas-container
+        label[for="dev-aba-historico"]
+        .icone-container,
+      #dev-aba-historico:checked
+        ~ .botoes-abas-container
+        label[for="dev-aba-historico"]
+        .texto-container
+        h3,
+      #dev-aba-falhas:checked
+        ~ .botoes-abas-container
+        label[for="dev-aba-falhas"]
+        .icone-container,
+      #dev-aba-falhas:checked
+        ~ .botoes-abas-container
+        label[for="dev-aba-falhas"]
+        .texto-container
+        h3,
+      #dev-aba-pendencia:checked
+        ~ .botoes-abas-container
+        label[for="dev-aba-pendencia"]
+        .icone-container,
+      #dev-aba-pendencia:checked
+        ~ .botoes-abas-container
+        label[for="dev-aba-pendencia"]
+        .texto-container
+        h3 {
+        color: #0d6efd;
+      }
+
+      /* Estilos para os Painéis de Conteúdo */
+      .conteudo-aba {
+        display: none;
+        padding: 25px;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        background-color: #fff;
+        margin-top: 10px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      }
+      .conteudo-aba h2 {
+        font-size: 24px;
+        color: #0d6efd;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #eee;
+      }
+      .conteudo-aba p,
+      .conteudo-aba li {
+        font-size: 16px;
+        line-height: 1.7;
+        color: #495057;
+        margin-bottom: 10px;
+      }
+
+      /* Mostrar o conteúdo da aba ATIVA */
+      #dev-aba-tarefas:checked
+        ~ .paineis-conteudo-container
+        #conteudo-dev-tarefas,
+      #dev-aba-planejar:checked
+        ~ .paineis-conteudo-container
+        #conteudo-dev-planejar,
+      #dev-aba-historico:checked
+        ~ .paineis-conteudo-container
+        #conteudo-dev-historico,
+      #dev-aba-falhas:checked
+        ~ .paineis-conteudo-container
+        #conteudo-dev-falhas,
+      #dev-aba-pendencia:checked
+        ~ .paineis-conteudo-container
+        #conteudo-dev-pendencia {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="main-container">
+      <div class="nav-container">
+        <nav>
+          <ul>
+            <li class="nav-titulo"><h3>Sistema de gerenciamento</h3></li>
+            <li class="nav-usuario"><p>Bem-vindo, Dev fulano</p></li>
+          </ul>
+          <div class="logout">
+            <a href="#">Logout</a>
+          </div>
+        </nav>
+      </div>
+
+      <section class="pagina-titulo-container">
+        <h1>Página do desenvolvedor</h1>
+        <p>Acesso às tarefas e funções de desenvolvimento.</p>
+      </section>
+
+      <input
+        type="radio"
+        name="dev-abas"
+        id="dev-aba-tarefas"
+        class="input-aba"
+        checked
+      />
+      <input
+        type="radio"
+        name="dev-abas"
+        id="dev-aba-planejar"
+        class="input-aba"
+      />
+      <input
+        type="radio"
+        name="dev-abas"
+        id="dev-aba-historico"
+        class="input-aba"
+      />
+      <input
+        type="radio"
+        name="dev-abas"
+        id="dev-aba-falhas"
+        class="input-aba"
+      />
+      <input
+        type="radio"
+        name="dev-abas"
+        id="dev-aba-pendencia"
+        class="input-aba"
+      />
+
+      <div class="botoes-abas-container">
+        <label for="dev-aba-tarefas" class="label-aba">
+          <span class="icone-container"><i class="fas fa-tasks"></i></span>
+          <span class="texto-container">
+            <h3>Minhas Tarefas de Refatoração</h3>
+            <p>Visualizar e gerenciar tarefas atribuídas</p>
+          </span>
+        </label>
+
+        <label for="dev-aba-planejar" class="label-aba">
+          <span class="icone-container"><i class="fas fa-lightbulb"></i></span>
+          <span class="texto-container">
+            <h3>Planejar Nova Refatoração</h3>
+            <p>Criar, planejar uma nova refatoração</p>
+          </span>
+        </label>
+
+        <label for="dev-aba-historico" class="label-aba">
+          <span class="icone-container"><i class="fas fa-history"></i></span>
+          <span class="texto-container">
+            <h3>histórico de refatorações</h3>
+            <p>Visualizar histórico das refatorações</p>
+          </span>
+        </label>
+
+        <label for="dev-aba-falhas" class="label-aba">
+          <span class="icone-container"><i class="fas fa-bug"></i></span>
+          <span class="texto-container">
+            <h3>Relatórios de Falhas</h3>
+            <p>Visualizar relatórios de falhas encontradas</p>
+          </span>
+        </label>
+
+        <label for="dev-aba-pendencia" class="label-aba">
+          <span class="icone-container"
+            ><i class="fas fa-file-circle-question"></i
+          ></span>
+          <span class="texto-container">
+            <h3>Código com Pendência</h3>
+            <p>ver código que requer revisão ou teste</p>
+          </span>
+        </label>
+      </div>
+
+      <div class="paineis-conteudo-container">
+        <div class="conteudo-aba" id="conteudo-dev-tarefas">
+          <h2>Minhas Tarefas de Refatoração</h2>
+          <p>Lista de tarefas de refatoração atribuídas a você</p>
+        </div>
+
+        <div class="conteudo-aba" id="conteudo-dev-planejar">
+          <h2>Planejar Nova Refatoração</h2>
+          <p>
+            Descreva uma refatoração necessária para que o gerente possa
+            analisar e atribuir.
+          </p>
+          <form action="#" method="post">
+            <div>
+              <label for="ref-titulo-dev">Título da Sugestão:</label
+              ><input type="text" id="ref-titulo-dev" name="ref-titulo-dev" />
+            </div>
+            <div>
+              <label for="ref-descricao-dev">Justificativa Técnica:</label
+              ><textarea
+                id="ref-descricao-dev"
+                name="ref-descricao-dev"
+                rows="5"
+              ></textarea>
+            </div>
+            <div><button type="submit">Enviar Sugestão</button></div>
+          </form>
+        </div>
+
+        <div class="conteudo-aba" id="conteudo-dev-historico">
+          <h2>Histórico de Refatorações</h2>
+          <p>
+            Registro de todas as tarefas de refatoração concluídas por você e
+            pela equipe.
+          </p>
+          <ul>
+            <li>
+              <strong>Concluída em 01/06/2025:</strong> Testando historico.
+            </li>
+          </ul>
+        </div>
+
+        <div class="conteudo-aba" id="conteudo-dev-falhas">
+          <h2>Relatórios de Falhas</h2>
+          <p>
+            Relatórios gerados automaticamente sobre falhas e exceções que podem
+            indicar necessidade de refatoração.
+          </p>
+          <ul>
+            <li>
+              <strong>Falha Crítica (10x hoje):</strong> NullPointerException
+            </li>
+          </ul>
+        </div>
+
+        <div class="conteudo-aba" id="conteudo-dev-pendencia">
+          <h2>Código com Pendência</h2>
+          <ul>
+            <li>
+              <strong>Revisão Solicitada:</strong> [Feature/LoginSocial] -
+              Adiciona login com Google
+            </li>
+          </ul>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

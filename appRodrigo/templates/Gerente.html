@@ -1,0 +1,306 @@
+{% load static %}
+
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Gerente</title>
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="{% static 'css/global/Reset.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/user-css/Gerente.css' %}"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body>
+<main class="main-container">
+    <div class="nav-container">
+        <nav>
+            <ul>
+                <li class="nav-titulo"><h3>Sistema de gerenciamento</h3></li>
+                <li class="nav-usuario"><p>Bem-vindo, gerente fulano</p></li>
+            </ul>
+            <div class="logout">
+                <a href="#">Logout</a>
+            </div>
+        </nav>
+    </div>
+
+    <section class="pagina-titulo-container">
+        <h1>Página do Gerente</h1>
+        <p>Acesso exclusivo para gestão e controle do sistema.</p>
+    </section>
+
+    <input
+            type="radio"
+            name="abas"
+            id="aba-cadastrar-projeto"
+            class="input-aba"
+            checked
+    /> <input
+        type="radio"
+        name="abas"
+        id="aba-visao-geral"
+        class="input-aba"
+        checked
+/>
+    <input
+            type="radio"
+            name="abas"
+            id="aba-planejar-refatoracoes"
+            class="input-aba"
+    />
+    <input
+            type="radio"
+            name="abas"
+            id="aba-logs-atividades"
+            class="input-aba"
+    />
+    <input
+            type="radio"
+            name="abas"
+            id="aba-gerenciar-usuarios"
+            class="input-aba"
+    />
+    <input
+            type="radio"
+            name="abas"
+            id="aba-visualizar-relatorios"
+            class="input-aba"
+    />
+    <input
+            type="radio"
+            name="abas"
+            id="aba-config-seguranca"
+            class="input-aba"
+    />
+
+    <div class="botoes-abas-container">
+        <label for="aba-visao-geral" class="label-aba">
+            <span class="icone-container"><i class="fas fa-chart-line"></i></span>
+            <span class="texto-container">
+            <h3>Visão Geral do Sistema</h3>
+            <p>Acesso aos relatórios gerais</p>
+          </span>
+        </label>
+        <label for="aba-cadastrar-projeto" class="label-aba">
+            <span class="icone-container"><i class="fas fa-chart-line"></i></span>
+            <span class="texto-container">
+            <h3>Cadastrar Projeto</h3>
+            <p>Acesso aos relatórios gerais</p>
+          </span>
+        </label>
+        <label for="aba-planejar-refatoracoes" class="label-aba">
+          <span class="icone-container"
+          ><i class="fas fa-screwdriver-wrench"></i
+          ></span>
+            <span class="texto-container">
+            <h3>Planejar Refatorações</h3>
+            <p>Planejar e atribuir tarefas</p>
+          </span>
+        </label>
+        <label for="aba-logs-atividades" class="label-aba">
+          <span class="icone-container"
+          ><i class="fas fa-clock-rotate-left"></i
+          ></span>
+            <span class="texto-container">
+            <h3>Logs de Atividades</h3>
+            <p>Visualizar histórico completo</p>
+          </span>
+        </label>
+        <label for="aba-gerenciar-usuarios" class="label-aba">
+            <span class="icone-container"><i class="fas fa-user-cog"></i></span>
+            <span class="texto-container">
+            <h3>Gerenciar Usuários</h3>
+            <p>Criar, editar, remover usuários</p>
+          </span>
+        </label>
+        <label for="aba-visualizar-relatorios" class="label-aba">
+            <span class="icone-container"><i class="fas fa-file-lines"></i></span>
+            <span class="texto-container">
+            <h3>Visualizar Relatórios</h3>
+            <p>Relatórios de testes, refatorações</p>
+          </span>
+        </label>
+        <label for="aba-config-seguranca" class="label-aba">
+          <span class="icone-container"
+          ><i class="fas fa-shield-halved"></i
+          ></span>
+            <span class="texto-container">
+            <h3>Configurações de Segurança</h3>
+            <p>Alterar regras e permissões</p>
+          </span>
+        </label>
+    </div>
+
+    <div class="paineis-conteudo-container">
+        <div class="conteudo-aba" id="conteudo-visao-geral">
+            <h2>Visão Geral do Sistema</h2>
+            <p>
+                Esta seção apresenta um resumo do estado atual do sistema, incluindo
+                métricas chave e alertas importantes.
+            </p>
+        </div>
+        <div class="conteudo-aba" id="conteudo-cadastro-projeto">
+            <h2>Visão Geral do Sistema</h2>
+            <p>
+                Esta seção apresenta um resumo do estado atual do sistema, incluindo
+                métricas chave e alertas importantes.
+            </p>
+        </div>
+
+        <div class="conteudo-aba" id="conteudo-planejar-refatoracoes">
+            <h2>Planejar Refatorações</h2>
+            <p>
+                Utilize o formulário abaixo para criar e atribuir novas tarefas de
+                refatoração para a equipe de desenvolvimento.
+            </p>
+            <form action="{% url 'template_gerente' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="formulario" value="cadastro_refatoracao">
+
+                <div>
+                    <label for="ref-projeto">Projeto da Refatoração:</label
+                    ><input type="text" id="ref-projeto" name="ref-projeto"/>
+                </div>
+                <div>
+                    <label for="ref-titulo">Título da Refatoração:</label
+                    ><input type="text" id="ref-titulo" name="ref-titulo"/>
+                </div>
+                <div>
+                    <label for="ref-descricao">Descrição:</label
+                    ><textarea
+                        id="ref-descricao"
+                        name="ref-descricao"
+                        rows="4"
+                ></textarea>
+                </div>
+                <div>
+                    <label for="ref-equipe">Atribuir a:</label
+                    ><input type="text" id="ref-equipe" name="ref-equipe"/>
+                </div>
+                <div>
+                    <button type="submit">Salvar Tarefa</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="conteudo-aba" id="conteudo-logs-atividades">
+            <h2>Logs de Atividades</h2>
+            <p>
+                Aqui você pode visualizar um histórico detalhado de todas as ações
+                realizadas no sistema, filtrando por data, usuário ou tipo de
+                atividade.
+            </p>
+            <p></p>
+        </div>
+
+        <div class="conteudo-aba" id="conteudo-gerenciar-usuarios">
+            <h2>Gerenciar Equipe</h2>
+            <p>Adicione novos usuários ou gerencie os existentes.</p>
+
+            <form action="{% url 'template_gerente' %}" method="post" class="form-adicionar-usuario">
+                {% csrf_token %}
+                <input type="hidden" name="formulario" value="cadastro_usuarios">
+                {% if menssagem %}
+                <script>alert('Usuario cadastrado com sucesso')</script>
+                >
+                {% endif %}
+                <div>
+                    <label for="usr-nome">Nome do Usuário:</label
+                    ><input
+                        type="text"
+                        id="usr-nome"
+                        name="usr-nome"
+                        placeholder="Nome completo"
+                />
+                </div>
+                <div>
+                    <label for="usr-nome">Equipe do Usuário:</label
+                    ><input
+                        type="text"
+                        id="usr-equipe"
+                        name="usr-equipe"
+                        placeholder="Nome completo da equipe"
+                />
+                </div>
+                <div>
+                    <label for="usr-email">Email:</label
+                    ><input
+                        type="email"
+                        id="usr-email"
+                        name="usr-email"
+                        placeholder="email@example.com"
+                />
+                </div>
+                <div>
+                    <label for="usr-email">Senha:</label
+                    ><input
+                        type="password"
+                        id="usr-senha"
+                        name="usr-senha"
+                        placeholder="Capingas123"
+                />
+                </div>
+                <div>
+                    <button type="submit">Adicionar Usuário</button>
+                </div>
+            </form>
+
+            <div class="lista-usuarios-gerenciamento">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Usuario</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Senha</th>
+                        <th scope="col">E-mail</th>
+                        <th scope="col">Equipe</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>@fat</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td colspan="2">Larry the Bird</td>
+                        <td>@twitter</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <h4>Usuários Cadastrados:</h4>
+                <div class="usuario-item">
+                    <span>Ana Silva (ana.silva@example.com)</span>
+                    <button type="button" class="btn-remover-usuario">Remover</button>
+                </div>
+            </div>
+        </div>
+        <div class="conteudo-aba" id="conteudo-visualizar-relatorios">
+            <h2>Visualizar Relatórios Específicos</h2>
+            <p>
+                Acesse relatórios detalhados sobre testes de software, progresso de
+                refatorações, utilização de recursos e mais.
+            </p>
+        </div>
+
+        <div class="conteudo-aba" id="conteudo-config-seguranca">
+            <h2>Configurações de Segurança</h2>
+            <p>Gerencie as políticas de segurança.</p>
+        </div>
+    </div>
+</main>
+</body>
+</html>

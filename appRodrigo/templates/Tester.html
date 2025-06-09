@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Página do Tester</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <style>
+      /* Reset básico e estilos globais */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f7f6;
+        color: #333;
+      }
+      li {
+        list-style: none;
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      /* Estilos do cabeçalho e título da página */
+      .main-container {
+        min-height: 100vh;
+        padding: 30px 50px 30px 50px;
+      }
+      .nav-container {
+        margin-bottom: 50px;
+        position: relative;
+      }
+      .nav-container .nav-titulo h3 {
+        font-size: 30px;
+        color: #2c3e50;
+      }
+      .nav-container .nav-usuario p {
+        font-size: 16px;
+        color: #555;
+        margin-top: 5px;
+      }
+      .logout {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: #0d6efd;
+        border-radius: 5px;
+        text-align: center;
+        padding: 8px 15px;
+        transition: background-color 0.3s;
+      }
+      .logout:hover {
+        background-color: #084fb9;
+      }
+      .logout a {
+        color: #fff;
+        font-weight: bold;
+      }
+
+      .pagina-titulo-container {
+        margin-bottom: 40px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #e0e0e0;
+      }
+      .pagina-titulo-container h1 {
+        font-size: 36px;
+        color: #2c3e50;
+        margin-bottom: 8px;
+      }
+      .pagina-titulo-container p {
+        font-size: 18px;
+        color: #7f8c8d;
+      }
+
+      /* --- ESTILOS PARA O SISTEMA DE ABAS DO TESTER --- */
+      .input-aba {
+        display: none;
+      }
+      .botoes-abas-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin-bottom: 20px;
+      }
+      .label-aba {
+        display: flex;
+        align-items: center;
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        border: 1px solid #dee2e6;
+        cursor: pointer;
+        transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s,
+          transform 0.3s;
+        flex-grow: 1;
+        flex-basis: calc(50% - 20px);
+        min-width: 300px;
+        text-align: left;
+      }
+      .label-aba:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      }
+
+      .label-aba .icone-container {
+        margin-right: 15px;
+        font-size: 20px;
+        color: #6c757d;
+        width: 25px;
+        text-align: center;
+      }
+      .label-aba .texto-container h3 {
+        font-size: 18px;
+        color: #212529;
+        margin-bottom: 5px;
+        font-weight: 600;
+      }
+      .label-aba .texto-container p {
+        font-size: 14px;
+        color: #6c757d;
+        line-height: 1.4;
+      }
+
+      /* Estilo para o label da aba ATIVA */
+      #tester-aba-executar:checked
+        ~ .botoes-abas-container
+        label[for="tester-aba-executar"],
+      #tester-aba-planejar:checked
+        ~ .botoes-abas-container
+        label[for="tester-aba-planejar"],
+      #tester-aba-aprovados:checked
+        ~ .botoes-abas-container
+        label[for="tester-aba-aprovados"],
+      #tester-aba-relatorios:checked
+        ~ .botoes-abas-container
+        label[for="tester-aba-relatorios"],
+      #tester-aba-pendencia:checked
+        ~ .botoes-abas-container
+        label[for="tester-aba-pendencia"] {
+        background-color: #fff;
+        border-color: #0d6efd;
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15);
+        transform: translateY(-2px);
+      }
+      /* Para mudar a cor do ícone e texto do label ativo também */
+      #tester-aba-executar:checked
+        ~ .botoes-abas-container
+        label[for="tester-aba-executar"]
+        .icone-container,
+      #tester-aba-executar:checked
+        ~ .botoes-abas-container
+        label[for="tester-aba-executar"]
+        .texto-container
+        h3,
+      #tester-aba-planejar:checked
+        ~ .botoes-abas-container
+        label[for="tester-aba-planejar"]
+        .icone-container,
+      #tester-aba-planejar:checked
+        ~ .botoes-abas-container
+        label[for="tester-aba-planejar"]
+        .texto-container
+        h3,
+      #tester-aba-aprovados:checked
+        ~ .botoes-abas-container
+        label[for="tester-aba-aprovados"]
+        .icone-container,
+      #tester-aba-aprovados:checked
+        ~ .botoes-abas-container
+        label[for="tester-aba-aprovados"]
+        .texto-container
+        h3,
+      #tester-aba-relatorios:checked
+        ~ .botoes-abas-container
+        label[for="tester-aba-relatorios"]
+        .icone-container,
+      #tester-aba-relatorios:checked
+        ~ .botoes-abas-container
+        label[for="tester-aba-relatorios"]
+        .texto-container
+        h3,
+      #tester-aba-pendencia:checked
+        ~ .botoes-abas-container
+        label[for="tester-aba-pendencia"]
+        .icone-container,
+      #tester-aba-pendencia:checked
+        ~ .botoes-abas-container
+        label[for="tester-aba-pendencia"]
+        .texto-container
+        h3 {
+        color: #0d6efd;
+      }
+
+      /* Estilos para os Painéis de Conteúdo */
+      .conteudo-aba {
+        display: none;
+        padding: 25px;
+        border: 1px solid #dee2e6;
+        border-radius: 8px;
+        background-color: #fff;
+        margin-top: 10px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      }
+      .conteudo-aba h2 {
+        font-size: 24px;
+        color: #0d6efd;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #eee;
+      }
+      .conteudo-aba p,
+      .conteudo-aba li {
+        font-size: 16px;
+        line-height: 1.7;
+        color: #495057;
+        margin-bottom: 10px;
+      }
+
+      /* Mostrar o conteúdo da aba ATIVA */
+      #tester-aba-executar:checked
+        ~ .paineis-conteudo-container
+        #conteudo-tester-executar,
+      #tester-aba-planejar:checked
+        ~ .paineis-conteudo-container
+        #conteudo-tester-planejar,
+      #tester-aba-aprovados:checked
+        ~ .paineis-conteudo-container
+        #conteudo-tester-aprovados,
+      #tester-aba-relatorios:checked
+        ~ .paineis-conteudo-container
+        #conteudo-tester-relatorios,
+      #tester-aba-pendencia:checked
+        ~ .paineis-conteudo-container
+        #conteudo-tester-pendencia {
+        display: block;
+      }
+
+      /* Estilos específicos para tabela de testes */
+      .tabela-testes {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+      }
+      .tabela-testes th,
+      .tabela-testes td {
+        border: 1px solid #dee2e6;
+        padding: 10px 12px;
+        text-align: left;
+      }
+      .tabela-testes th {
+        background-color: #f8f9fa;
+        font-weight: 600;
+      }
+      .status {
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-weight: bold;
+        font-size: 12px;
+        color: #fff;
+      }
+      .status-aprovado {
+        background-color: #28a745;
+      }
+      .status-pendente {
+        background-color: #ffc107;
+        color: #212529;
+      }
+      .status-reprovado {
+        background-color: #dc3545;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="main-container">
+      <div class="nav-container">
+        <nav>
+          <ul>
+            <li class="nav-titulo"><h3>Sistema de gerenciamento</h3></li>
+            <li class="nav-usuario"><p>Bem-vindo, Tester fulano</p></li>
+          </ul>
+          <div class="logout">
+            <a href="#">Logout</a>
+          </div>
+        </nav>
+      </div>
+
+      <section class="pagina-titulo-container">
+        <h1>Página do Tester</h1>
+        <p>Acesso às tarefas e funções de teste.</p>
+      </section>
+
+      <input
+        type="radio"
+        name="tester-abas"
+        id="tester-aba-executar"
+        class="input-aba"
+        checked
+      />
+      <input
+        type="radio"
+        name="tester-abas"
+        id="tester-aba-planejar"
+        class="input-aba"
+      />
+      <input
+        type="radio"
+        name="tester-abas"
+        id="tester-aba-aprovados"
+        class="input-aba"
+      />
+      <input
+        type="radio"
+        name="tester-abas"
+        id="tester-aba-relatorios"
+        class="input-aba"
+      />
+      <input
+        type="radio"
+        name="tester-abas"
+        id="tester-aba-pendencia"
+        class="input-aba"
+      />
+
+      <div class="botoes-abas-container">
+        <label for="tester-aba-executar" class="label-aba">
+          <span class="icone-container"><i class="fas fa-vial"></i></span>
+          <span class="texto-container">
+            <h3>Executar Testes</h3>
+            <p>Executar casos de teste atribuídos</p>
+          </span>
+        </label>
+
+        <label for="tester-aba-planejar" class="label-aba">
+          <span class="icone-container"><i class="fas fa-lightbulb"></i></span>
+          <span class="texto-container">
+            <h3>Planejar Nova Refatoração</h3>
+            <p>Criar e Planejar uma nova refatoração</p>
+          </span>
+        </label>
+
+        <label for="tester-aba-aprovados" class="label-aba">
+          <span class="icone-container"
+            ><i class="fas fa-check-circle"></i
+          ></span>
+          <span class="texto-container">
+            <h3>Testes Aprovados</h3>
+            <p>Visualizar casos de teste aprovados</p>
+          </span>
+        </label>
+
+        <label for="tester-aba-relatorios" class="label-aba">
+          <span class="icone-container"
+            ><i class="fas fa-file-contract"></i
+          ></span>
+          <span class="texto-container">
+            <h3>Relatórios</h3>
+            <p>Adicionar anotações aos testes executados</p>
+          </span>
+        </label>
+
+        <label for="tester-aba-pendencia" class="label-aba">
+          <span class="icone-container"
+            ><i class="fas fa-hourglass-half"></i
+          ></span>
+          <span class="texto-container">
+            <h3>Código com Pendência</h3>
+            <p>Ver código que requer revisão ou teste</p>
+          </span>
+        </label>
+      </div>
+
+      <div class="paineis-conteudo-container">
+        <div class="conteudo-aba" id="conteudo-tester-executar">
+          <h2>Executar Casos de Teste</h2>
+          <p>
+            A seguir, a lista de casos de teste que precisam ser executados para
+            a sprint atual.
+          </p>
+          <table class="tabela-testes">
+            <thead>
+              <tr>
+                <th>ID do Teste</th>
+                <th>Funcionalidade</th>
+                <th>Status</th>
+                <th>Ação</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>TC-001</td>
+                <td>Login de Usuário com credenciais válidas</td>
+                <td><span class="status status-pendente">Pendente</span></td>
+                <td><a href="#">Executar</a></td>
+              </tr>
+              <tr>
+                <td>TC-002</td>
+                <td>Cadastro de novo produto no catálogo</td>
+                <td><span class="status status-pendente">Pendente</span></td>
+                <td><a href="#">Executar</a></td>
+              </tr>
+              <tr>
+                <td>TC-003</td>
+                <td>Cálculo de frete para a região Sudeste</td>
+                <td><span class="status status-aprovado">Aprovado</span></td>
+                <td><a href="#">Ver detalhes</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="conteudo-aba" id="conteudo-tester-planejar">
+          <h2>Sugerir Refatoração por Falha em Teste</h2>
+          <p>
+            Se um teste falhou repetidamente devido a um problema no código,
+            sugira uma refatoração.
+          </p>
+          <form action="#" method="post">
+            <div>
+              <label for="ref-sugestao-titulo">Título da Sugestão:</label
+              ><input
+                type="text"
+                id="ref-sugestao-titulo"
+                name="ref-sugestao-titulo"
+              />
+            </div>
+            <div>
+              <label for="ref-sugestao-desc"
+                >Descrição do Problema Encontrado:</label
+              ><textarea
+                id="ref-sugestao-desc"
+                name="ref-sugestao-desc"
+                rows="5"
+              ></textarea>
+            </div>
+            <div><button type="submit">Enviar Sugestão</button></div>
+          </form>
+        </div>
+
+        <div class="conteudo-aba" id="conteudo-tester-aprovados">
+          <h2>Histórico de Testes Aprovados</h2>
+          <p>
+            Registro de todos os casos de teste que foram executados e aprovados
+            com sucesso.
+          </p>
+          <table class="tabela-testes">
+            <thead>
+              <tr>
+                <th>ID do Teste</th>
+                <th>Funcionalidade</th>
+                <th>Data de Aprovação</th>
+                <th>Tester</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>TC-003</td>
+                <td>Cálculo de frete para a região Sudeste</td>
+                <td>06/06/2025</td>
+                <td>Tester Fulano</td>
+              </tr>
+              <tr>
+                <td>TC-005</td>
+                <td>Validação de cupom de desconto</td>
+                <td>05/06/2025</td>
+                <td>Tester Fulano</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="conteudo-aba" id="conteudo-tester-relatorios">
+          <h2>Gerar Relatório de Teste</h2>
+          <p>
+            Documente os resultados de um ciclo de testes, incluindo bugs
+            encontrados e anotações gerais.
+          </p>
+          <form action="#" method="post">
+            <div>
+              <label for="rel-ciclo">Ciclo de Teste (ex: Sprint 24):</label
+              ><input type="text" id="rel-ciclo" name="rel-ciclo" />
+            </div>
+            <div>
+              <label for="rel-resumo">Resumo dos Resultados:</label
+              ><textarea id="rel-resumo" name="rel-resumo" rows="5"></textarea>
+            </div>
+            <div><button type="submit">Salvar Relatório</button></div>
+          </form>
+        </div>
+
+        <div class="conteudo-aba" id="conteudo-tester-pendencia">
+          <h2>Código Pendente para Teste</h2>
+          <p>
+            Funcionalidades desenvolvidas que foram liberadas e aguardam a
+            execução dos seus testes de validação.
+          </p>
+          <table class="tabela-testes">
+            <thead>
+              <tr>
+                <th>Funcionalidade</th>
+                <th>Desenvolvedor</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  [Feature/PagamentoPix] - Implementação do pagamento via PIX
+                </td>
+                <td>Dev Ciclano</td>
+                <td>
+                  <span class="status status-pendente">Aguardando Teste</span>
+                </td>
+              </tr>
+              <tr>
+                <td>[Fix/Bug-145] - Correção no cálculo de impostos</td>
+                <td>Dev Beltrano</td>
+                <td>
+                  <span class="status status-pendente">Aguardando Teste</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,64 @@
+.main-container {
+  min-height: 100vh;
+  padding: 30px 50px 30px 50px;
+}
+.nav-container {
+  display: relative;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+.nav-container li h3 {
+  font-size: 30px;
+}
+.nav-container li {
+  margin-bottom: 10px;
+}
+li {
+  list-style: none;
+}
+.logout {
+  position: absolute;
+  top: 30px;
+  right: 40px;
+  background-color: #0d6efd;
+  border-radius: 5px;
+  text-align: center;
+  padding: 5px;
+  width: 100px;
+  transition: 0.8s;
+}
+.logout:hover {
+  background-color: #084fb9;
+}
+.logout a {
+  color: #fff;
+  text-decoration: none;
+}
+.titulo {
+  margin-bottom: 100px;
+}
+.titulo h1 {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+.secao-projetos {
+  display: flex;
+  justify-content: space-around;
+}
+.secao-projetos li a h3 {
+  color: #000;
+}
+.secao-projetos li p {
+  font-size: 13px;
+}
+.secao-projetos li {
+  margin-bottom: 33px;
+  display: flex;
+  background-color: #ebebeb;
+  padding: 20px;
+  border-radius: 6px;
+  width: 100%;
+}
+.secao-projetos .lista {
+  margin-right: 10px;
+}

@@ -1,0 +1,322 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f7f6;
+  color: #333;
+}
+li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Estilos Globais e Existentes Adaptados */
+.main-container {
+  min-height: 100vh;
+  padding: 30px 50px 30px 50px;
+}
+.nav-container {
+  margin-bottom: 50px;
+  position: relative;
+}
+.nav-container .nav-titulo h3 {
+  font-size: 30px;
+  color: #2c3e50;
+}
+.nav-container .nav-usuario p {
+  font-size: 16px;
+  color: #555;
+  margin-top: 5px;
+}
+.logout {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #0d6efd;
+  border-radius: 5px;
+  text-align: center;
+  padding: 8px 15px;
+  transition: background-color 0.3s;
+}
+.logout:hover {
+  background-color: #084fb9;
+}
+.logout a {
+  color: #fff;
+  font-weight: bold;
+}
+
+.pagina-titulo-container {
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e0e0e0;
+}
+.pagina-titulo-container h1 {
+  font-size: 36px;
+  color: #2c3e50;
+  margin-bottom: 8px;
+}
+.pagina-titulo-container p {
+  font-size: 18px;
+  color: #7f8c8d;
+}
+
+/* --- ESTILOS PARA O SISTEMA DE ABAS --- */
+.input-aba {
+  display: none;
+}
+.botoes-abas-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.label-aba {
+  display: flex;
+  align-items: center;
+  background-color: #e9ecef;
+  padding: 15px 20px;
+  border-radius: 6px;
+  border: 1px solid #dee2e6;
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+  flex-grow: 1;
+  min-width: 260px;
+  text-align: left;
+}
+.label-aba:hover {
+  background-color: #ced4da;
+  border-color: #adb5bd;
+}
+.label-aba .icone-container {
+  margin-right: 12px;
+  font-size: 20px;
+  color: #495057;
+  width: 25px;
+  text-align: center;
+}
+.label-aba .texto-container h3 {
+  font-size: 16px;
+  color: #212529;
+  margin-bottom: 3px;
+  font-weight: 600;
+}
+.label-aba .texto-container p {
+  font-size: 13px;
+  color: #6c757d;
+  line-height: 1.4;
+}
+
+#aba-visao-geral:checked ~ .botoes-abas-container label[for="aba-visao-geral"],
+#aba-planejar-refatoracoes:checked
+  ~ .botoes-abas-container
+  label[for="aba-planejar-refatoracoes"],
+#aba-logs-atividades:checked
+  ~ .botoes-abas-container
+  label[for="aba-logs-atividades"],
+#aba-gerenciar-usuarios:checked
+  ~ .botoes-abas-container
+  label[for="aba-gerenciar-usuarios"],
+#aba-visualizar-relatorios:checked
+  ~ .botoes-abas-container
+  label[for="aba-visualizar-relatorios"],
+#aba-config-seguranca:checked
+  ~ .botoes-abas-container
+  label[for="aba-config-seguranca"] {
+  background-color: #fff;
+  border-color: #0d6efd;
+  color: #0d6efd;
+  box-shadow: 0 3px 6px rgba(0, 123, 255, 0.1);
+}
+#aba-visao-geral:checked
+  ~ .botoes-abas-container
+  label[for="aba-visao-geral"]
+  .icone-container,
+#aba-visao-geral:checked
+  ~ .botoes-abas-container
+  label[for="aba-visao-geral"]
+  .texto-container
+  h3,
+#aba-planejar-refatoracoes:checked
+  ~ .botoes-abas-container
+  label[for="aba-planejar-refatoracoes"]
+  .icone-container,
+#aba-planejar-refatoracoes:checked
+  ~ .botoes-abas-container
+  label[for="aba-planejar-refatoracoes"]
+  .texto-container
+  h3,
+#aba-logs-atividades:checked
+  ~ .botoes-abas-container
+  label[for="aba-logs-atividades"]
+  .icone-container,
+#aba-logs-atividades:checked
+  ~ .botoes-abas-container
+  label[for="aba-logs-atividades"]
+  .texto-container
+  h3,
+#aba-gerenciar-usuarios:checked
+  ~ .botoes-abas-container
+  label[for="aba-gerenciar-usuarios"]
+  .icone-container,
+#aba-gerenciar-usuarios:checked
+  ~ .botoes-abas-container
+  label[for="aba-gerenciar-usuarios"]
+  .texto-container
+  h3,
+#aba-visualizar-relatorios:checked
+  ~ .botoes-abas-container
+  label[for="aba-visualizar-relatorios"]
+  .icone-container,
+#aba-visualizar-relatorios:checked
+  ~ .botoes-abas-container
+  label[for="aba-visualizar-relatorios"]
+  .texto-container
+  h3,
+#aba-config-seguranca:checked
+  ~ .botoes-abas-container
+  label[for="aba-config-seguranca"]
+  .icone-container,
+#aba-config-seguranca:checked
+  ~ .botoes-abas-container
+  label[for="aba-config-seguranca"]
+  .texto-container
+  h3 {
+  color: #0d6efd;
+}
+.conteudo-aba {
+  display: none;
+  padding: 25px;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  background-color: #fff;
+  margin-top: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+.conteudo-aba h2 {
+  font-size: 24px;
+  color: #0d6efd;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+.conteudo-aba p,
+.conteudo-aba li {
+  font-size: 16px;
+  line-height: 1.7;
+  color: #495057;
+  margin-bottom: 10px;
+}
+.conteudo-aba ul {
+  list-style-position: inside;
+  padding-left: 0;
+}
+.conteudo-aba ul li {
+  margin-bottom: 8px;
+}
+
+#aba-visao-geral:checked ~ .paineis-conteudo-container #conteudo-visao-geral,
+#aba-planejar-refatoracoes:checked
+  ~ .paineis-conteudo-container
+  #conteudo-planejar-refatoracoes,
+#aba-logs-atividades:checked
+  ~ .paineis-conteudo-container
+  #conteudo-logs-atividades,
+#aba-gerenciar-usuarios:checked
+  ~ .paineis-conteudo-container
+  #conteudo-gerenciar-usuarios,
+#aba-visualizar-relatorios:checked
+  ~ .paineis-conteudo-container
+  #conteudo-visualizar-relatorios,
+#aba-config-seguranca:checked
+  ~ .paineis-conteudo-container
+  #conteudo-config-seguranca {
+  display: block;
+}
+
+.conteudo-aba form div {
+  margin-bottom: 15px;
+}
+.conteudo-aba form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #495057;
+}
+.conteudo-aba form input[type="text"],
+.conteudo-aba form input[type="email"],
+.conteudo-aba form input[type="password"],
+.conteudo-aba form textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  font-size: 15px;
+}
+.conteudo-aba form input[type="text"]:focus,
+.conteudo-aba form input[type="email"]:focus,
+.conteudo-aba form input[type="password"]:focus,
+.conteudo-aba form textarea:focus {
+  border-color: #80bdff;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+.conteudo-aba form button {
+  padding: 10px 20px;
+  background-color: #0d6efd;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+.conteudo-aba form button:hover {
+  background-color: #0056b3;
+}
+
+/* NOVOS ESTILOS PARA A LISTA DE USUÁRIOS E BOTÃO DE REMOVER */
+.form-adicionar-usuario {
+  margin-bottom: 30px; /* Espaço antes da lista de usuários */
+}
+
+.lista-usuarios-gerenciamento {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+.lista-usuarios-gerenciamento h4 {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 15px;
+}
+.usuario-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px; /* Aumentado o padding */
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  background-color: #f9f9f9;
+}
+.usuario-item span {
+  font-size: 15px;
+  color: #555;
+}
+.btn-remover-usuario {
+  padding: 8px 15px;
+  background-color: #dc3545; /* Vermelho para perigo/remoção */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+.btn-remover-usuario:hover {
+  background-color: #c82333; /* Vermelho mais escuro no hover */
+}
